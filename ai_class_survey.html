@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AX 클래스 교육생 후기 서베이</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #0DCC5A;
+    --orange-light: #3DD876;
+    --orange-pale: #EAFAF1;
+    --dark: #1A1A1A;
+    --mid: #555;
+    --light: #F7F7F7;
+    --white: #FFFFFF;
+    --border: #EBEBEB;
+    --green: #00C46A;
+    --blue: #3B82F6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background: #F4F4F2;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--dark);
+    padding: 48px 0 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    background: var(--orange);
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 10%;
+    width: 200px; height: 200px;
+    background: var(--orange-light);
+    border-radius: 50%;
+    opacity: 0.08;
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .header h1 span { color: var(--orange); }
+  .header-sub {
+    color: #888;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 32px;
+  }
+
+  /* KPI ROW */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px 20px;
+    border: 1.5px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  }
+  .kpi-card.accent {
+    background: var(--orange);
+    border-color: var(--orange);
+  }
+  .kpi-card.accent .kpi-label,
+  .kpi-card.accent .kpi-value { color: #fff; }
+  .kpi-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .kpi-value {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--dark);
+    line-height: 1;
+  }
+  .kpi-unit {
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0.6;
+    margin-left: 2px;
+  }
+  .kpi-sub {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 6px;
+  }
+  .kpi-card.accent .kpi-sub { color: rgba(255,255,255,0.6); }
+
+  /* GRID */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1.5px solid var(--border);
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #999;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .card-question {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  /* STAR DIST */
+  .star-dist { display: flex; flex-direction: column; gap: 10px; }
+  .star-row { display: flex; align-items: center; gap: 10px; }
+  .star-label { font-size: 13px; font-weight: 600; color: var(--mid); width: 16px; text-align: right; }
+  .star-icon { font-size: 13px; }
+  .bar-track {
+    flex: 1;
+    height: 10px;
+    background: var(--light);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--orange);
+    transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .bar-fill.muted { background: #DDD; }
+  .star-count { font-size: 12px; color: #bbb; width: 20px; }
+
+  /* PILL DISTRIBUTION */
+  .pill-dist { display: flex; flex-direction: column; gap: 12px; }
+  .pill-row { display: flex; align-items: center; gap: 10px; }
+  .pill-label { font-size: 12px; font-weight: 600; color: var(--mid); width: 140px; flex-shrink: 0; line-height: 1.3; }
+  .pill-bar-wrap { flex: 1; display: flex; align-items: center; gap: 8px; }
+  .pill-bar-track { flex: 1; height: 10px; background: var(--light); border-radius: 999px; overflow: hidden; }
+  .pill-bar-fill { height: 100%; border-radius: 999px; background: var(--orange); }
+  .pill-n { font-size: 12px; color: #bbb; }
+
+  /* DONUT */
+  .donut-wrap { display: flex; align-items: center; gap: 24px; }
+  .donut-svg { flex-shrink: 0; }
+  .donut-legend { display: flex; flex-direction: column; gap: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .legend-label { color: var(--mid); font-weight: 500; }
+  .legend-pct { font-weight: 700; color: var(--dark); margin-left: auto; }
+
+  /* QUOTES */
+  .quotes-grid { display: flex; flex-direction: column; gap: 12px; }
+  .quote-item {
+    background: var(--orange-pale);
+    border-left: 3px solid var(--orange);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--dark);
+    line-height: 1.6;
+    position: relative;
+  }
+  .quote-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ONE-WORD */
+  .tags-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1.5px solid var(--border);
+    background: var(--light);
+    color: var(--dark);
+    cursor: default;
+    transition: all 0.2s;
+  }
+  .tag:hover { background: var(--orange-pale); border-color: var(--orange); color: var(--orange); }
+  .tag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+
+  /* SCORE BIG */
+  .score-display {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .score-big {
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .score-max { font-size: 20px; color: #ccc; font-weight: 500; padding-bottom: 8px; }
+  .stars-row { display: flex; gap: 3px; margin-bottom: 12px; }
+  .star-filled { color: var(--orange); font-size: 18px; }
+  .star-half { color: var(--orange); font-size: 18px; }
+
+  /* NPS */
+  .nps-bar { display: flex; height: 18px; border-radius: 999px; overflow: hidden; margin: 16px 0 10px; }
+  .nps-seg { transition: width 0.8s ease; }
+  .nps-legend { display: flex; justify-content: space-between; }
+  .nps-legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #999; }
+  .nps-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: #bbb;
+    font-size: 12px;
+  }
+
+  /* SECTION DIVIDER */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #bbb;
+    margin-bottom: 14px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* INTENT METER */
+  .intent-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .intent-text { font-size: 13px; font-weight: 600; color: var(--mid); width: 160px; flex-shrink: 0; }
+  .intent-track { flex: 1; height: 12px; background: var(--light); border-radius: 999px; overflow: hidden; }
+  .intent-fill { height: 100%; border-radius: 999px; }
+  .intent-pct { font-size: 13px; font-weight: 700; color: var(--dark); width: 40px; text-align: right; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card, .kpi-card {
+    animation: fadeUp 0.5s ease both;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-badge">중고나라 AX 캠페인</div>
+    <h1>Claude Code <span>원데이 클래스</span><br>교육생 후기</h1>
+    <div class="header-sub">2026년 5월 7일 · 응답자 11명 · 만족도 설문</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi-card accent">
+      <div class="kpi-label">총 응답자</div>
+      <div class="kpi-value">11<span class="kpi-unit">명</span></div>
+      <div class="kpi-sub">2026.05.07 기준</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">사전 인지도</div>
+      <div class="kpi-value">3.9<span class="kpi-unit">/5</span></div>
+      <div class="kpi-sub">Q1 사전 인지 수준</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">추천 의향 평균</div>
+      <div class="kpi-value">4.4<span class="kpi-unit">/5</span></div>
+      <div class="kpi-sub">동료 추천 의향 (Q7)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">즉시 활용 의향</div>
+      <div class="kpi-value">73<span class="kpi-unit">%</span></div>
+      <div class="kpi-sub">"바로 써볼 것 같다 🔥"</div>
+    </div>
+  </div>
+
+  <!-- SECTION: BEFORE/AFTER -->
+  <div class="section-label">참여 전후 비교</div>
+  <div class="grid-2" style="margin-bottom:20px;">
+
+    <!-- Q1 사전 인지도 -->
+    <div class="card">
+      <div class="card-title">Q1 · 사전 인지도</div>
+      <div class="card-question">클래스 참여 전, Claude Code를 얼마나 알고 있었나요?</div>
+      <div class="pill-dist">
+        <div class="pill-row">
+          <div class="pill-label">전혀 몰랐다</div>
+          <div class="pill-bar-wrap">
+            <div class="pill-bar-track"><div class="pill-bar-fill" style="width:18%;background:#A8EEC7;"></div></div>
+            <div class="pill-n">2명</div>
+          </div>
+        </div>
+        <div class="pill-row">
+          <div class="pill-label">이름만 들어봤다</div>
+          <div class="pill-bar-wrap">
+            <div class="pill-bar-track"><div class="pill-bar-fill" style="width:45%;"></div></div>
+            <div class="pill-n">5명</div>
+          </div>
+        </div>
+        <div class="pill-row">
+          <div class="pill-label">어느 정도 알고 있었다</div>
+          <div class="pill-bar-wrap">
+            <div class="pill-bar-track"><div class="pill-bar-fill" style="width:18%;"></div></div>
+            <div class="pill-n">2명</div>
+          </div>
+        </div>
+        <div class="pill-row">
+          <div class="pill-label">이미 써보고 있었다</div>
+          <div class="pill-bar-wrap">
+            <div class="pill-bar-track"><div class="pill-bar-fill" style="width:27%;background:#3DD876;"></div></div>
+            <div class="pill-n">3명</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:16px;font-size:12px;color:#bbb;">* 초보자~중급 수준이 대다수 (73%)</div>
+    </div>
+
+    <!-- Q2 vs Q4 Before/After -->
+    <div class="card">
+      <div class="card-title">Q2 vs Q4 · Before → After</div>
+      <div class="card-question">"나도 AI로 뭔가 만들 수 있다"는 자신감 변화</div>
+
+      <div style="display:flex;align-items:center;gap:20px;margin-top:4px;">
+        <div style="flex:1;text-align:center;">
+          <div style="font-size:11px;font-weight:700;color:#bbb;letter-spacing:0.06em;margin-bottom:8px;">참여 전</div>
+          <div style="font-size:52px;font-weight:800;color:#ccc;line-height:1;">4.1</div>
+          <div style="font-size:12px;color:#bbb;margin-top:4px;">/ 5점</div>
+        </div>
+        <div style="font-size:28px;color:var(--orange);">→</div>
+        <div style="flex:1;text-align:center;">
+          <div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:0.06em;margin-bottom:8px;">참여 후</div>
+          <div style="font-size:52px;font-weight:800;color:var(--orange);line-height:1;">4.5</div>
+          <div style="font-size:12px;color:#bbb;margin-top:4px;">/ 5점</div>
+        </div>
+      </div>
+
+      <div style="background:var(--orange-pale);border-radius:10px;padding:12px 14px;margin-top:20px;font-size:13px;color:var(--orange);font-weight:600;text-align:center;">
+        ✦ 자신감 +0.4점 상승 · 최저점 3 → 5 끌어올림
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: 활용 의향 -->
+  <div class="section-label">활용 의향 & 추천</div>
+  <div class="grid-3" style="margin-bottom:20px;">
+
+    <!-- Q5 업무 활용 가능성 -->
+    <div class="card">
+      <div class="card-title">Q5 · 업무 활용</div>
+      <div class="card-question">배운 내용을 당장 업무에 써볼 수 있나요?</div>
+      <div style="margin-top:8px;">
+        <div class="intent-row">
+          <div class="intent-text">있다</div>
+          <div class="intent-track"><div class="intent-fill" style="width:73%;background:var(--green);"></div></div>
+          <div class="intent-pct">73%</div>
+        </div>
+        <div class="intent-row">
+          <div class="intent-text">잘 모르겠다</div>
+          <div class="intent-track"><div class="intent-fill" style="width:9%;background:#FFCC44;"></div></div>
+          <div class="intent-pct">9%</div>
+        </div>
+        <div class="intent-row">
+          <div class="intent-text">없다</div>
+          <div class="intent-track"><div class="intent-fill" style="width:9%;background:#DDD;"></div></div>
+          <div class="intent-pct">9%</div>
+        </div>
+      </div>
+      <div style="margin-top:14px;font-size:12px;color:#bbb;">* 1명 무응답 제외</div>
+    </div>
+
+    <!-- Q6 향후 사용 의향 -->
+    <div class="card">
+      <div class="card-title">Q6 · 향후 사용 의향</div>
+      <div class="card-question">Claude Code를 실제로 써볼 의향이 있나요?</div>
+      <div style="margin-top:8px;">
+        <div class="intent-row">
+          <div class="intent-text">바로 써볼 것 같다 🔥</div>
+          <div class="intent-track"><div class="intent-fill" style="width:73%;background:var(--orange);"></div></div>
+          <div class="intent-pct">73%</div>
+        </div>
+        <div class="intent-row">
+          <div class="intent-text">더 배우고 써볼 것 같다</div>
+          <div class="intent-track"><div class="intent-fill" style="width:9%;background:#6EE4A0;"></div></div>
+          <div class="intent-pct">9%</div>
+        </div>
+        <div class="intent-row">
+          <div class="intent-text">아직 잘 모르겠다</div>
+          <div class="intent-track"><div class="intent-fill" style="width:18%;background:#DDD;"></div></div>
+          <div class="intent-pct">18%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 추천 의향 -->
+    <div class="card">
+      <div class="card-title">Q7 · 추천 의향</div>
+      <div class="card-question">이 클래스를 동료에게 추천하고 싶으신가요?</div>
+      <div class="score-display">
+        <div class="score-big">4.4</div>
+        <div class="score-max">/ 5</div>
+      </div>
+      <div class="stars-row">
+        <span class="star-filled">★</span>
+        <span class="star-filled">★</span>
+        <span class="star-filled">★</span>
+        <span class="star-filled">★</span>
+        <span style="color:#EEE;font-size:18px;">★</span>
+      </div>
+      <div class="star-dist" style="margin-top:4px;">
+        <div class="star-row">
+          <div class="star-label">5</div><div class="star-icon">⭐</div>
+          <div class="bar-track"><div class="bar-fill" style="width:55%;"></div></div>
+          <div class="star-count">6명</div>
+        </div>
+        <div class="star-row">
+          <div class="star-label">4</div><div class="star-icon">⭐</div>
+          <div class="bar-track"><div class="bar-fill" style="width:27%;background:#6EE4A0;"></div></div>
+          <div class="star-count">3명</div>
+        </div>
+        <div class="star-row">
+          <div class="star-label">3</div><div class="star-icon">⭐</div>
+          <div class="bar-track"><div class="bar-fill" style="width:18%;background:#A8EEC7;"></div></div>
+          <div class="star-count">2명</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: 주관식 -->
+  <div class="section-label">주관식 응답</div>
+  <div class="grid-2" style="margin-bottom:20px;">
+
+    <!-- Q3 인상 깊었던 순간 -->
+    <div class="card">
+      <div class="card-title">Q3 · 가장 인상 깊었던 순간</div>
+      <div class="card-question">클래스에서 가장 인상 깊었던 내용은 무엇인가요?</div>
+      <div class="quotes-grid">
+        <div class="quote-item">
+          <div class="quote-num">응답 01</div>
+          비개발자·초보자 입장에서 공감해주며 설명해주신 모습이 너무 좋았습니다.
+        </div>
+        <div class="quote-item">
+          <div class="quote-num">응답 02</div>
+          자연어로 서비스를 플래닝하는 과정이 인상적이었습니다.
+        </div>
+        <div class="quote-item">
+          <div class="quote-num">응답 03</div>
+          강사님 회사 전체 직원이 모두 Claude로 개발 중이라는 점이 가장 인상 깊었습니다.
+        </div>
+        <div class="quote-item">
+          <div class="quote-num">응답 04</div>
+          반복 업무를 자동화할 수 있다는 사실이 아주 인상 깊었습니다.
+        </div>
+        <div class="quote-item">
+          <div class="quote-num">응답 05</div>
+          직접 API를 연결하고 데이터를 추출하며 전반적인 개발 플로우를 경험할 수 있어서 좋았습니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5-1 활용 아이디어 + Q7-1 추천 이유 -->
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div class="card">
+        <div class="card-title">Q5-1 · 업무 활용 아이디어</div>
+        <div class="card-question">어떤 업무에 활용해볼 수 있을 것 같나요?</div>
+        <div class="tags-wrap">
+          <div class="tag"><div class="tag-dot"></div>업무용 사이트 생성</div>
+          <div class="tag"><div class="tag-dot"></div>업무 자동화·시각화</div>
+          <div class="tag"><div class="tag-dot"></div>Confluence 문서 정리</div>
+          <div class="tag"><div class="tag-dot"></div>MCP·Extension 활용</div>
+          <div class="tag"><div class="tag-dot"></div>디자인 시스템 자동화</div>
+          <div class="tag"><div class="tag-dot"></div>디자인 토큰 등록</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Q7-1 · 추천 이유 한 줄</div>
+        <div class="card-question">추천하거나 추천하지 않는 이유를 적어주세요.</div>
+        <div class="quotes-grid">
+          <div class="quote-item">내가 필요한 업무 비서를 만들 수 있을 것 같다.</div>
+          <div class="quote-item">쉽게 설명해주시고 개별 속도에 맞춰 진행해주셔서 좋았다.</div>
+          <div class="quote-item">클로드로 업무와 무관한 영역에도 응용 가능 — 기회는 무조건 있어야 한다.</div>
+          <div class="quote-item">전사적으로 AI 이해도를 높이는 데 크게 도움이 되었다.</div>
+          <div class="quote-item">아예 모르는 분들한테는 아주 유용할 것 같습니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 클래스를 한 마디로 -->
+  <div class="section-label">Q8 · 클래스를 한 마디로 표현한다면?</div>
+  <div class="card" style="margin-bottom:20px;">
+    <div class="tags-wrap">
+      <div class="tag" style="font-size:15px;padding:10px 18px;background:var(--orange);color:#fff;border-color:var(--orange);">
+        🔥 할 수 있다는 클로드
+      </div>
+      <div class="tag" style="font-size:14px;padding:10px 16px;">💡 생각만큼 어렵지 않네!</div>
+      <div class="tag" style="font-size:14px;padding:10px 16px;">🎯 바이브코딩 찍먹 일타강의</div>
+      <div class="tag" style="font-size:14px;padding:10px 16px;">🤖 코딩할 수 있을듯</div>
+      <div class="tag" style="font-size:14px;padding:10px 16px;">📚 나도 할 수 있다는 생각이 들었다</div>
+      <div class="tag" style="font-size:14px;padding:10px 16px;">🧠 클로드 코드에 대한 이해가 되었다</div>
+      <div class="tag" style="font-size:14px;padding:10px 16px;">✨ 나같은 컴맹도 AI를 활용할 수 있다</div>
+      <div class="tag" style="font-size:14px;padding:10px 16px;">📖 배우면 무조건 득되는 강의</div>
+      <div class="tag" style="font-size:14px;padding:10px 16px;">🎓 좀 더 공부해서 활용해보겠습니다</div>
+      <div class="tag" style="font-size:14px;padding:10px 16px;">🌟 선생님이 강의를 너무 잘해주셔서 다음에 또 듣고싶어요</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">중고나라 People Team · AX 캠페인 · 2026년 5월 7일</div>
+
+</body>
+</html>
